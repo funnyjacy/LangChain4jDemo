@@ -200,10 +200,10 @@
         themeToggle.addEventListener('click', () => setTheme(!isDark()));
         setTheme(localStorage.getItem('theme') === 'dark');
 
-        // 会话 ID：用于对话记忆，同会话内 AI 会记住上下文
-        const sessionId = localStorage.getItem('chatSessionId') || (() => {
+        // 使用 sessionStorage：每个浏览器标签页/窗口独立会话，多开窗口时记忆隔离
+        const sessionId = sessionStorage.getItem('chatSessionId') || (() => {
             const id = 's_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
-            localStorage.setItem('chatSessionId', id);
+            sessionStorage.setItem('chatSessionId', id);
             return id;
         })();
 
