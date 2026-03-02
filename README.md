@@ -6,8 +6,8 @@
 
 - **Spring Boot** 3.4.x
 - **Java** 17
-- **LangChain4j** 1.11.0
-- **阿里云 DashScope**（通义千问）
+- **LangChain4j** 1.11.0（含 Easy RAG）
+- **阿里云 DashScope**（通义千问 + text-embedding-v2）
 - **Redis**（聊天记忆持久化）
 
 ## 快速开始
@@ -51,24 +51,39 @@ mvn spring-boot:run
 curl "http://localhost:8080/chat?message=请介绍一下你自己"
 ```
 
+### 6. RAG 大学录取分数线问答
+
+项目内置 Easy RAG，使用 `resources/university/` 下的大学录取分数线文档作为知识库。可直接提问：
+
+```bash
+curl "http://localhost:8080/chat?message=清华大学2024年河北录取分数线多少"
+```
+
 ## 项目结构
 
 ```
 src/main/java/com/example/langchain4jdemo/
 ├── Langchain4jDemoApplication.java    # 启动类
 ├── config/
-│   └── ChatMemoryConfig.java          # Redis 持久化对话记忆
+│   ├── ChatMemoryConfig.java          # Redis 持久化对话记忆
+│   └── RagConfig.java                 # Easy RAG：向量库构建 + ContentRetriever
 ├── controller/
 │   └── ChatController.java            # 使用 AiService 的聊天接口
 └── aiservice/
     └── Assistant.java                 # @AiService 接口定义
 ```
 
+## RAG 说明
+
+- **存储**：启动时从 `classpath:university/*.md` 加载文档，切割、向量化后写入内存 EmbeddingStore
+- **检索**：使用 DashScope `text-embedding-v2` 模型，配置 `maxResults=5`、`minScore=0.6`
+- **接入**：`ContentRetriever` 自动注入到 `Assistant`，提问时会先检索相关知识再生成回答
+
 ## API 说明
 
 | 接口 | 方法 | 说明 |
 |------|------|------|
-| `/chat?message=xxx` | GET | 使用声明式 AiService 的聊天接口 |
+| `/chat?message=xxx` | GET | 聊天（含 RAG，可问大学录取分数等） |
 
 ## 模型配置
 

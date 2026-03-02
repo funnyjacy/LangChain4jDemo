@@ -16,6 +16,10 @@ langchain4j:
         # LangChain4j 请求/响应日志
         log-requests: true
         log-responses: true
+      # RAG 向量化使用通义 Embedding 模型（中文效果更好）
+      embedding-model:
+        api-key: ${API_KEY}
+        model-name: text-embedding-v2
 
 # 日志配置
 logging:
