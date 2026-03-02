@@ -1,0 +1,22 @@
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Build
+target/
+
+# Maven
+pom.xml.tag
+pom.xml.releaseBackup
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
