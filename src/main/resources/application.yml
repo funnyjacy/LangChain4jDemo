@@ -1,0 +1,20 @@
+# 通过 ${API_KEY} 从本机环境变量引入，不在配置中硬编码
+langchain4j:
+  community:
+    dashscope:
+      chat-model:
+        api-key: ${API_KEY}
+        model-name: qwen-plus
+        # LangChain4j 请求/响应日志
+        log-requests: true
+        log-responses: true
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.example.langchain4jdemo: DEBUG
+    dev.langchain4j: DEBUG
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

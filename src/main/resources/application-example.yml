@@ -1,0 +1,9 @@
+# 配置模板 - API Key 通过 application.yml 中的 ${API_KEY} 从环境变量引入
+#
+# 需在系统/终端中设置环境变量 API_KEY：
+#
+# Windows PowerShell:
+#   $env:API_KEY="your-api-key"
+#
+# Linux / macOS:
+#   export API_KEY=your-api-key
