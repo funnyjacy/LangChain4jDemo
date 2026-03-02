@@ -10,6 +10,6 @@ import dev.langchain4j.service.spring.AiService;
 // 也可以自定义实现
 public interface Assistant {
 
-    @SystemMessage("你是一个礼貌、专业的 AI 助手，用中文回答问题。") // 系统提示词
+    @SystemMessage(fromResource = "prompts/girlfriend-role.md") // 娇小体贴女友角色设定
     String chat(String userMessage); // 聊天方法
 }
