@@ -1,3 +1,11 @@
+# Redis 配置 - 用于持久化聊天记忆，服务器重启后不丢失
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      # password:  # 若 Redis 有密码则取消注释并填写
+
 # 通过 ${API_KEY} 从本机环境变量引入，不在配置中硬编码
 langchain4j:
   community:

@@ -1,9 +1,6 @@
-# 配置模板 - API Key 通过 application.yml 中的 ${API_KEY} 从环境变量引入
+# 配置模板
 #
-# 需在系统/终端中设置环境变量 API_KEY：
+# 1. API Key - 通过环境变量 API_KEY 配置
+# 2. Redis - 聊天记忆持久化，需先启动 Redis
 #
-# Windows PowerShell:
-#   $env:API_KEY="your-api-key"
-#
-# Linux / macOS:
-#   export API_KEY=your-api-key
+# Redis 默认: localhost:6379，有密码时可配置 spring.data.redis.password
