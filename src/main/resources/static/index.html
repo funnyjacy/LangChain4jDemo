@@ -200,6 +200,13 @@
         themeToggle.addEventListener('click', () => setTheme(!isDark()));
         setTheme(localStorage.getItem('theme') === 'dark');
 
+        // 会话 ID：用于对话记忆，同会话内 AI 会记住上下文
+        const sessionId = localStorage.getItem('chatSessionId') || (() => {
+            const id = 's_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+            localStorage.setItem('chatSessionId', id);
+            return id;
+        })();
+
         function addMessage(text, role) {
             const div = document.createElement('div');
             div.className = 'message ' + role;
@@ -223,7 +230,7 @@
             messagesEl.scrollTop = messagesEl.scrollHeight;
 
             try {
-                const resp = await fetch('/chat?message=' + encodeURIComponent(text));
+                const resp = await fetch('/chat?sessionId=' + encodeURIComponent(sessionId) + '&message=' + encodeURIComponent(text));
                 loadingEl.remove();
                 if (resp.ok) {
                     const reply = await resp.text();

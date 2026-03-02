@@ -22,9 +22,14 @@ public class ChatController {
     }
 
     @GetMapping("/chat")
-    public String chat(@RequestParam(value = "message", defaultValue = "请介绍一下你自己") String message) {
-        log.info("AiService 请求: message={}", message);
-        String response = assistant.chat(message);
+    public String chat(
+            @RequestParam(value = "sessionId", required = false) String sessionId,
+            @RequestParam(value = "message", defaultValue = "请介绍一下你自己") String message) {
+        if (sessionId == null || sessionId.isBlank()) {
+            sessionId = "default";
+        }
+        log.info("AiService 请求: sessionId={}, message={}", sessionId, message);
+        String response = assistant.chat(sessionId, message);
         log.debug("AiService 响应: {}", response);
         return response;
     }
