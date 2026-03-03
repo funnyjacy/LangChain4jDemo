@@ -56,8 +56,9 @@ public class RagConfig {
 
         log.info("加载到 {} 个文档，开始向量化并存储...", documents.size());
 
-        // 文档切割、向量化并存储到向量数据库
+        // 封装了文档切割、向量化并存储到向量数据库的整个流程
         EmbeddingStoreIngestor.builder()
+                // 递归切割文档，参数1：每个片段的最大字符数，参数2：片段之间的重叠字符数
                 .documentSplitter(DocumentSplitters.recursive(MAX_SEGMENT_CHARS, MAX_OVERLAP_CHARS))
                 .embeddingModel(embeddingModel)
                 .embeddingStore(embeddingStore)

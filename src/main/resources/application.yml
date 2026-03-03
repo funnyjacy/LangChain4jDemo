@@ -9,7 +9,16 @@ spring:
 # 通过 ${API_KEY} 从本机环境变量引入，不在配置中硬编码
 langchain4j:
   community:
+    redis:
+      host: localhost
+      port: 6379
+      # password:  # 若 Redis 有密码则取消注释并填写
     dashscope:
+      stream-chat-model:
+        api-key: ${API_KEY}
+        model-name: qwen-plus
+        log-requests: true
+        log-responses: true
       chat-model:
         api-key: ${API_KEY}
         model-name: qwen-plus
@@ -20,6 +29,8 @@ langchain4j:
       embedding-model:
         api-key: ${API_KEY}
         model-name: text-embedding-v2
+        log-requests: true
+        log-responses: true
 
 # 日志配置
 logging:
